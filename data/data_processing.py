@@ -1,3 +1,25 @@
+
+import pandas as pd
+import numpy as np
+import data_processing
+import torch
+from torch.utils.data import Dataset ,DataLoader
+
+
+WINDOW_SIZE  = 90
+PREDICT_SIZE = 30
+SLIDING_SIZE =1
+FEATURE_SIZE = 6
+BATCH_SIZE =64
+FULLLY_SIZE =128
+FEATURE = [ 'Open', 'High','Low','Close', 'Volume','sell','buy' ]
+TARGET = 'Close'
+TICKER_NUMBER =2743
+TOTAL_DAY = 166
+WINDOW_NUMBER =int(TOTAL_DAY - (WINDOW_SIZE+PREDICT_SIZE)/SLIDING_SIZE+1)
+
+
+
 def min_max(sequences):
   results = sequences.copy()
   v_min =results.min()
@@ -46,3 +68,24 @@ def preprocess_lstm(df):
   train_x,train_y=np.split(train.reshape(46*TICKER_NUMBER,WINDOW_SIZE+PREDICT_SIZE,FEATURE_SIZE),[WINDOW_SIZE],axis=1)
   vaild_x,vaild_y=np.split(vaild.reshape(1*TICKER_NUMBER,WINDOW_SIZE+PREDICT_SIZE,FEATURE_SIZE),[WINDOW_SIZE],axis=1)
   return train_x,train_y,vaild_x,vaild_y,min_max_list
+
+class BaseDataset(Dataset):
+    def __init__(self, x_data, y_data, target):
+        self.x_data = torch.tensor(x_data,dtype =torch.float32)
+        self.y_data = torch.tensor(y_data[:,:,FEATURE.index(target)],dtype = torch.float32)
+
+    def __getitem__(self, index):
+        return self.x_data[index], self.y_data[index]
+
+    def __len__(self):
+        return self.x_data.shape[0]
+
+# def make_train_loader():
+#   data= pd.read_csv('stockPrice/NASDAQ.csv')
+#   data.columns = ['Date', 'Ticker', 'Open', 'High','Low', 'Close', 'Volume','sell','buy' ]
+#   train_x,train_y,vaild_x,vaild_y,min_max_list = preprocess_lstm(data)
+#   train_data = BaseDataset(train_x,train_y,TARGET)
+#   test_data =  BaseDataset(vaild_x,vaild_y,TARGET)
+#   train_dataloader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True,drop_last=True)
+#   test_dataloader = DataLoader(test_data, batch_size=BATCH_SIZE, shuffle=True,drop_last=True)
+#   return train_dataloader,test_dataloader ,train_x,train_y,vaild_x,vaild_y,min_max_list

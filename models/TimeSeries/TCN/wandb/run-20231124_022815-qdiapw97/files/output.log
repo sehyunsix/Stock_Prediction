@@ -1,0 +1,28 @@
+Epoch: 0000 train loss : 2544.8831
+vaild_loss: 0.0372 MAE : 2.8540 Accuarcy : 0.8279
+Epoch: 0001 train loss : 0.0373
+vaild_loss: 0.0514 MAE : 3.4531 Accuarcy : 0.7891
+Epoch: 0002 train loss : 0.0341
+vaild_loss: 0.0438 MAE : 2.9407 Accuarcy : 0.8067
+Epoch: 0003 train loss : 0.0335
+vaild_loss: 0.0327 MAE : 2.5115 Accuarcy : 0.8493
+Epoch: 0004 train loss : 0.0303
+vaild_loss: 0.0313 MAE : 2.6197 Accuarcy : 0.8515
+Epoch: 0005 train loss : 0.0296
+vaild_loss: 0.0327 MAE : 2.5168 Accuarcy : 0.8509
+Epoch: 0006 train loss : 0.0288
+vaild_loss: 0.0348 MAE : 2.5918 Accuarcy : 0.8441
+Epoch: 0007 train loss : 0.0280
+vaild_loss: 0.0374 MAE : 2.7633 Accuarcy : 0.8240
+Epoch: 0008 train loss : 0.0279
+vaild_loss: 0.0330 MAE : 2.6528 Accuarcy : 0.8521
+Epoch: 0009 train loss : 0.0282
+vaild_loss: 0.0347 MAE : 2.5964 Accuarcy : 0.8429
+Epoch: 0010 train loss : 0.0285
+vaild_loss: 0.0416 MAE : 3.1370 Accuarcy : 0.8056
+Epoch: 0011 train loss : 0.0281
+vaild_loss: 0.0345 MAE : 2.6427 Accuarcy : 0.8372
+Epoch: 0012 train loss : 0.0284
+vaild_loss: 0.0385 MAE : 2.8321 Accuarcy : 0.8217
+{"BATCH_SIZE": "int", "BaseDataset": "type", "DEVICE": "str", "DROPOUT": "float", "DataLoader": "type", "Dataset": "type", "EPOCH": "int", "F": "module", "FEATURE": "list", "FEATURE_SIZE": "int", "FULLLY_SIZE": "int", "HIDDEN_SIZE": "int", "IR": "float", "NUM_LAYERS": "int", "PATIENCE": "int", "PREDICT_SIZE": "int", "SLIDING_SIZE": "int", "SUFFLE": "bool", "TARGET": "str", "TCN": "type", "TCNModel": "type", "TCN_trainer": "type", "TICKER_NUMBER": "int", "TOTAL_DAY": "int", "TemporalConvNet": "type", "WINDOW_NUMBER": "int", "WINDOW_SIZE": "int", "X": "Tensor", "argparse": "module", "batch_idx": "int", "data": "DataFrame", "dropout": "float", "dummy_data": "Tensor", "feature_columns": "list", "input_channels": "int", "input_size": "int", "inverse_min_max": "function", "kenel_size": "int", "min_max": "function", "min_max_list": "list", "model": "TCNModel", "nn": "module", "np": "module", "num_channels": "list", "optim": "module", "output": "Tensor", "output_size": "int", "params": "OrderedDict", "parser": "ArgumentParser", "pd": "module", "pickle": "module", "plt": "module", "preprocess_lstm": "function", "pridict_size": "int", "result": "Tensor", "samples": "list", "summary": "function", "swap_axes": "function", "test_data": "BaseDataset", "test_dataloader": "DataLoader", "torch": "module", "tqdm_notebook": "function", "train_data": "BaseDataset", "train_dataloader": "DataLoader", "train_x": "ndarray", "train_y": "ndarray", "trainer": "TCN_trainer", "vaild_x": "ndarray", "vaild_y": "ndarray", "wandb": "module", "weight_norm": "function", "x_train": "Tensor", "y": "Tensor", "y_train": "Tensor"}
+{"shape": "(32, 20, 200)", "count": 32, "type": "Tensor"}
