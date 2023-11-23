@@ -1,51 +1,63 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
+from torch.nn.utils import weight_norm
 
-class TCN(nn.Module):
-  def __init__(self, input_size, output_size, num_channels, kernel_size, dropout):
-    super(TCN, self).__init__()
-    self.input_size = input_size
-    self.output_size = output_size
-    self.num_channels = num_channels
-    self.kernel_size = kernel_size
-    self.dropout = dropout
 
-    self.conv_layers = nn.ModuleList()
-    self.batch_norm_layers = nn.ModuleList()
-    self.relu_layers = nn.ModuleList()
-    self.dropout_layers = nn.ModuleList()
+class Chomp1d(nn.Module):
+    def __init__(self, chomp_size):
+        super(Chomp1d, self).__init__()
+        self.chomp_size = chomp_size
 
-    for i, channels in enumerate(num_channels):
-      dilation = 2 ** i
-      padding = int((kernel_size * dilation - dilation) / 2)
-      conv_layer = nn.Conv1d(
-        in_channels=input_size if i == 0 else num_channels[i-1],
-        out_channels=channels,
-        kernel_size=kernel_size,
-        dilation=dilation,
-        padding=padding
-      )
-      self.conv_layers.append(conv_layer)
-      self.batch_norm_layers.append(nn.BatchNorm1d(channels))
-      self.relu_layers.append(nn.ReLU())
-      self.dropout_layers.append(nn.Dropout(dropout))
+    def forward(self, x):
+        return x[:, :, :-self.chomp_size].contiguous()
 
-    self.fc_layer = nn.Linear(num_channels[-1], output_size)
 
-  def forward(self, x):
-    # x shape: (batch_size, input_size, sequence_length)
-    for i in range(len(self.conv_layers)):
-      x = self.conv_layers[i](x)
-      x = self.batch_norm_layers[i](x)
-      x = self.relu_layers[i](x)
-      x = self.dropout_layers[i](x)
+class TemporalBlock(nn.Module):
+    def __init__(self, n_inputs, n_outputs, kernel_size, stride, dilation, padding, dropout=0.2):
+        super(TemporalBlock, self).__init__()
+        self.conv1 = weight_norm(nn.Conv1d(n_inputs, n_outputs, kernel_size,
+                                           stride=stride, padding=padding, dilation=dilation))
+        self.chomp1 = Chomp1d(padding)
+        self.relu1 = nn.ReLU()
+        self.dropout1 = nn.Dropout(dropout)
 
-    # x shape: (batch_size, num_channels[-1], sequence_length)
-    x = x.permute(0, 2, 1)
-    # x shape: (batch_size, sequence_length, num_channels[-1])
-    x = x.mean(dim=1)
-    # x shape: (batch_size, num_channels[-1])
-    x = self.fc_layer(x)
-    # x shape: (batch_size, output_size)
-    return x
+        self.conv2 = weight_norm(nn.Conv1d(n_outputs, n_outputs, kernel_size,
+                                           stride=stride, padding=padding, dilation=dilation))
+        self.chomp2 = Chomp1d(padding)
+        self.relu2 = nn.ReLU()
+        self.dropout2 = nn.Dropout(dropout)
+
+        self.net = nn.Sequential(self.conv1, self.chomp1, self.relu1, self.dropout1,
+                                 self.conv2, self.chomp2, self.relu2, self.dropout2)
+        self.downsample = nn.Conv1d(n_inputs, n_outputs, 1) if n_inputs != n_outputs else None
+        self.relu = nn.ReLU()
+        self.init_weights()
+
+    def init_weights(self):
+        self.conv1.weight.data.normal_(0, 0.01)
+        self.conv2.weight.data.normal_(0, 0.01)
+        if self.downsample is not None:
+            self.downsample.weight.data.normal_(0, 0.01)
+
+    def forward(self, x):
+        out = self.net(x)
+        res = x if self.downsample is None else self.downsample(x)
+        return self.relu(out + res)
+
+
+class TemporalConvNet(nn.Module):
+    def __init__(self, num_inputs, num_channels, kernel_size=2, dropout=0.2):
+        super(TemporalConvNet, self).__init__()
+        layers = []
+        num_levels = len(num_channels)
+        for i in range(num_levels):
+            dilation_size = 2 ** i
+            in_channels = num_inputs if i == 0 else num_channels[i-1]
+            out_channels = num_channels[i]
+            layers += [TemporalBlock(in_channels, out_channels, kernel_size, stride=1, dilation=dilation_size,
+                                     padding=(kernel_size-1) * dilation_size, dropout=dropout)]
+
+        self.network = nn.Sequential(*layers)
+
+    def forward(self, x):
+        return self.network(x)
