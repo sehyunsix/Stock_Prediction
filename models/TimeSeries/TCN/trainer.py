@@ -108,3 +108,6 @@ class TCN_trainer:
         return (1-np.mean(np.abs((true-pred)/true)))
 
 
+
+def main():
+    

@@ -36171,3 +36171,82 @@
 2023-11-24 03:01:51,026 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
 2023-11-24 03:01:54,764 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: stop_status
 2023-11-24 03:01:54,766 DEBUG   SenderThread:35310 [sender.py:send_request():406] send_request: stop_status
+2023-11-24 03:01:55,991 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:01:56,027 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:00,992 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:01,028 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:03,025 DEBUG   SenderThread:35310 [sender.py:send():379] send: stats
+2023-11-24 03:02:05,993 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:07,029 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:09,764 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: stop_status
+2023-11-24 03:02:09,765 DEBUG   SenderThread:35310 [sender.py:send_request():406] send_request: stop_status
+2023-11-24 03:02:11,063 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:12,030 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:16,065 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:17,031 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:18,422 DEBUG   SenderThread:35310 [sender.py:send():379] send: stats
+2023-11-24 03:02:21,425 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:22,032 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:24,764 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: stop_status
+2023-11-24 03:02:24,766 DEBUG   SenderThread:35310 [sender.py:send_request():406] send_request: stop_status
+2023-11-24 03:02:27,023 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:27,033 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:32,025 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:32,034 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:33,028 DEBUG   SenderThread:35310 [sender.py:send():379] send: stats
+2023-11-24 03:02:37,028 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:38,031 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:39,765 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: stop_status
+2023-11-24 03:02:39,766 DEBUG   SenderThread:35310 [sender.py:send_request():406] send_request: stop_status
+2023-11-24 03:02:42,044 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:43,032 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:47,045 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:48,033 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:48,432 DEBUG   SenderThread:35310 [sender.py:send():379] send: stats
+2023-11-24 03:02:52,436 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:53,034 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:54,765 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: stop_status
+2023-11-24 03:02:54,767 DEBUG   SenderThread:35310 [sender.py:send_request():406] send_request: stop_status
+2023-11-24 03:02:58,033 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:02:58,035 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:03,031 DEBUG   SenderThread:35310 [sender.py:send():379] send: stats
+2023-11-24 03:03:03,035 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:04,033 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:08,035 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:09,034 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:09,765 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: stop_status
+2023-11-24 03:03:09,766 DEBUG   SenderThread:35310 [sender.py:send_request():406] send_request: stop_status
+2023-11-24 03:03:13,056 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:14,035 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:18,057 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:18,430 DEBUG   SenderThread:35310 [sender.py:send():379] send: stats
+2023-11-24 03:03:19,036 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:23,433 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:24,037 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:24,765 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: stop_status
+2023-11-24 03:03:24,767 DEBUG   SenderThread:35310 [sender.py:send_request():406] send_request: stop_status
+2023-11-24 03:03:29,038 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:29,067 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:33,035 DEBUG   SenderThread:35310 [sender.py:send():379] send: stats
+2023-11-24 03:03:34,068 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:34,413 INFO    cpu       :35310 [interfaces.py:monitor():140] Process cpu has exited.
+2023-11-24 03:03:34,414 DEBUG   SystemMonitor:35310 [system_monitor.py:_start():166] Finished system metrics aggregation loop
+2023-11-24 03:03:34,414 DEBUG   SystemMonitor:35310 [system_monitor.py:_start():170] Publishing last batch of metrics
+2023-11-24 03:03:34,416 DEBUG   SenderThread:35310 [sender.py:send():379] send: stats
+2023-11-24 03:03:34,417 DEBUG   HandlerThread:35310 [handler.py:handle_request():144] handle_request: status_report
+2023-11-24 03:03:34,595 INFO    memory    :35310 [interfaces.py:monitor():140] Process proc.memory.rssMB has exited.
+2023-11-24 03:03:34,596 DEBUG   SystemMonitor:35310 [system_monitor.py:_start():166] Finished system metrics aggregation loop
+2023-11-24 03:03:34,597 DEBUG   SystemMonitor:35310 [system_monitor.py:_start():170] Publishing last batch of metrics
+2023-11-24 03:03:34,601 DEBUG   SenderThread:35310 [sender.py:send():379] send: stats
+2023-11-24 03:03:35,018 WARNING StreamThr :35310 [internal.py:is_dead():414] Internal process exiting, parent pid 24682 disappeared
+2023-11-24 03:03:35,018 ERROR   StreamThr :35310 [internal.py:wandb_internal():152] Internal process shutdown.
+2023-11-24 03:03:35,517 INFO    MainThread:35310 [internal.py:handle_exit():76] Internal process exited
+2023-11-24 03:03:35,518 INFO    MainThread:35310 [internal.py:handle_exit():76] Internal process exited
+2023-11-24 03:03:35,518 INFO    MainThread:35310 [internal.py:handle_exit():76] Internal process exited
+2023-11-24 03:03:35,518 INFO    MainThread:35310 [internal.py:handle_exit():76] Internal process exited
+2023-11-24 03:03:35,518 INFO    MainThread:35310 [internal.py:handle_exit():76] Internal process exited
+2023-11-24 03:03:35,518 INFO    MainThread:35310 [internal.py:handle_exit():76] Internal process exited
+2023-11-24 03:03:35,518 INFO    MainThread:35310 [internal.py:handle_exit():76] Internal process exited
+2023-11-24 03:03:35,518 INFO    MainThread:35310 [internal.py:handle_exit():76] Internal process exited
+2023-11-24 03:03:35,518 INFO    MainThread:35310 [internal.py:handle_exit():76] Internal process exited
+2023-11-24 03:03:35,518 INFO    MainThread:35310 [internal.py:handle_exit():76] Internal process exited
