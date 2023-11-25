@@ -15,21 +15,7 @@ class TCN_trainer:
         self.vaild_hist =[]
 
     def train(self):
-        config = {
-        "learning_rate": IR,
-        "epochs": EPOCH,
-        "batch_size": BATCH_SIZE,
-        "shuffle":SUFFLE,
-        'verbose':1,
-        'patience':PATIENCE,
-        'dropout':DROPOUT,
-        'target':TARGET,
-        'feature_columns':FEATURE,
-        "NUM_LAYERS":NUM_LAYERS,
-         'HIDDEN_SIZE':HIDDEN_SIZE,
-         'DATA':data_list[DATA]
-
-        }
+       
         run = wandb.init(project ="LSTM",config=config)
 
         self.model.to(self.device)
@@ -110,4 +96,3 @@ class TCN_trainer:
 
 
 def main():
-    

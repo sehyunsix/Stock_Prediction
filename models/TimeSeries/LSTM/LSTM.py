@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class LSTM(nn.Module):
+class LSTMModel(nn.Module):
 	def __init__(self, output_size, hidden_size, embedding_length,num_layers ,fully_layer_size,dropout):
 		super(LSTM, self).__init__()
 		self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
