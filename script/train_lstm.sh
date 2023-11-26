@@ -2,12 +2,13 @@
 #!/bin/bash
 
 # Set the path to the Python module
-PYTHON_MODULE="trainer.tcn_trainer"
+PYTHON_MODULE="trainer.lstm_trainer"
 
 # Set the path to the output directory
 OUTPUT_DIR="results"
 
 # Set other optional arguments
+PROJECT_NAME="Time-series"
 OVERWRITE_OUTPUT_DIR="true"
 DO_TRAIN="true"
 DO_EVAL="true"
@@ -35,14 +36,18 @@ OUTPUT_SIZE="15"
 EVAL_STEPS="10"
 BATCH_SIZE="128"
 lOG_STEP="10"
+
+#model arguments
 WINDOW_SIZE="360"
-CHANNEL_SIZE="240"
-CHANNEL_LEVEL="3"
-KENEL_SIZE="7"
+NUM_LAYERS="2"
+HIDDEN_SIZE="120"
+DROPOUT="0.2"
+FULLY_LAYER_SIZE="128"
 
 
 # Run the Python module with the provided arguments
 accelerate launch -m  $PYTHON_MODULE \
+  --project $PROJECT_NAME \
   --output_dir $OUTPUT_DIR \
   --overwrite_output_dir $OVERWRITE_OUTPUT_DIR \
   --do_train $DO_TRAIN \
@@ -73,6 +78,9 @@ accelerate launch -m  $PYTHON_MODULE \
   --predict_size $PREDICT_SIZE\
   --output_size $OUTPUT_SIZE\
   --window_size $WINDOW_SIZE\
-  --channels_size $CHANNEL_SIZE\
-  --channels_level $CHANNEL_LEVEL\
-  --kernel_size $KENEL_SIZE\
+  --num_layers $NUM_LAYERS\
+  --hidden_size $HIDDEN_SIZE\
+  --fully_layer_size $FULLY_LAYER_SIZE\
+  --dropout $DROPOUT\
+
+

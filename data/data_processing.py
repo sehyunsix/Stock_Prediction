@@ -6,7 +6,7 @@ from torch.utils.data import Dataset ,DataLoader
 import pandas as pd
 
 class Window_maker:
-  def __init__(self,window_size:int,sliding_size:int,predict_size:int,data:pd.DataFrame) -> None:
+  def __init__(self,window_size:int,test_size:int,sliding_size:int,predict_size:int,data:pd.DataFrame) -> None:
     self.window_size = window_size
     self.sliding_size = sliding_size
     self.predict_size = predict_size
@@ -15,6 +15,7 @@ class Window_maker:
     self.data = data
     self.ticker_number =len(data['Ticker'].unique())
     self.total_day = len(data['Date'].unique())
+    self.test_size =test_size
     self.window_number =int(self.total_day - (self.window_size+self.predict_size)/self.sliding_size+1)
 
   def min_max(self,sequences):
@@ -50,9 +51,9 @@ class Window_maker:
       a, b, c= np.split(sequences,[i,i+self.window_size+self.predict_size],axis=1)
       original_list.append(b)
     result_array = np.array(original_list)
-    train ,vaild = np.split(result_array,[-1],axis=0)
-    train_x,train_y=np.split(train.reshape((self.window_number-1)*self.ticker_number,self.window_size+self.predict_size,self.feature_size),[self.window_size],axis=1)
-    vaild_x,vaild_y=np.split(vaild.reshape(1*self.ticker_number,self.window_size+self.predict_size,self.feature_size),[self.window_size],axis=1)
+    train ,vaild = np.split(result_array,[-self.test_size],axis=0)
+    train_x,train_y=np.split(train.reshape((self.window_number-self.test_size)*self.ticker_number,self.window_size+self.predict_size,self.feature_size),[self.window_size],axis=1)
+    vaild_x,vaild_y=np.split(vaild.reshape(self.test_size*self.ticker_number,self.window_size+self.predict_size,self.feature_size),[self.window_size],axis=1)
     return train_x,train_y,vaild_x,vaild_y
 
 
@@ -67,6 +68,7 @@ class Window_maker:
     price , trade,sentiments =np.split(sequences,[4,5],axis=2)
     trade , min_max_trading =self.min_max(trade)
     price , min_max_list =self.min_max(price)
+    self.min_max_list = min_max_list
     combine =np.concatenate([price,trade,sentiments],axis =2)
     scale_result = self.make_split(combine)
     original_result = self.make_split(original)

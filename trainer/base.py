@@ -46,6 +46,7 @@ class BaseTrainingArguments(TrainingArguments):
     project: str = "Time_sereis"
     model_type: str = "TCN"
     window_size : int = 90
+    test_size : int = 30
     predict_size : int = 15
     sliding_size : int =1
     feature_size : int = 5
@@ -159,16 +160,16 @@ class BaseTrainer:
         kwargs['window_size'] = self.args.window_size
         kwargs['predict_size'] = self.args.predict_size
         kwargs['sliding_size'] = self.args.sliding_size
+        kwargs['test_size'] = self.args.test_size
         kwargs['data'] =data
         # kwargs['feature'] = feature_set[self.args.feature_set_num]
 
         window_maker = Window_maker(**kwargs)
         original , scaled ,min_max_list= window_maker.preprocess_window()
         train_x,train_y,vaild_x,vaild_y = scaled
-        trian_x_o,train_y_0,vaild_x_o,vaild_y_o = original
-
-        train_data = self.make_dataset(train_x,train_y,train_y_0,self.args.target,feature_set[self.args.feature_set_num],min_max_list)
-        test_data =  self.make_dataset(vaild_x,vaild_y,vaild_y_o,self.args.target,feature_set[self.args.feature_set_num],min_max_list,train=False)
+        trian_x_o,train_y_o,vaild_x_o,vaild_y_o = original
+        train_data = self.make_dataset(train_x,train_y,train_y_o,self.args.target,window_maker)
+        test_data =  self.make_dataset(vaild_x,vaild_y,vaild_y_o,self.args.target,window_maker,train=False)
         return train_data,test_data
 
     def make_dataset(self):
@@ -207,8 +208,8 @@ class BaseTrainer:
     def _create_dataloader(self, train_data, test_data):
         if train_data is None:
             return None
-        train_dataloader = DataLoader(train_data, batch_size=self.args.batch_size, shuffle=False,drop_last=True)
-        test_dataloader = DataLoader(test_data, batch_size=self.args.batch_size, shuffle=False,drop_last=True)
+        train_dataloader = DataLoader(train_data, batch_size=self.args.batch_size, shuffle=True,drop_last=True)
+        test_dataloader = DataLoader(test_data, batch_size=self.args.batch_size, shuffle=True,drop_last=True)
         return train_dataloader,test_dataloader
 
     def train(self):
@@ -234,7 +235,9 @@ class BaseTrainer:
                     if torch.is_tensor(step_output):
                         loss = step_output
                     else:
-                        loss = step_output["loss"]
+                        loss = step_output["loss"].mean()
+                        acc = step_output["acc"].mean()
+                        mae = step_output["mae"].mean()
 
                     if self.accelerator.sync_gradients:
                         self.accelerator.clip_grad_norm_(self.model.parameters(), 1.0)
@@ -265,6 +268,8 @@ class BaseTrainer:
                             loss.item() * self.args.gradient_accumulation_steps
                         )
                         metrics["epoch"] = epoch
+                        metrics["acc"] = acc
+                        metrics['mae'] =mae
                         self.accelerator.log(metrics)
                         print()
                         pprint(metrics)

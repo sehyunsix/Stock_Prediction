@@ -14,41 +14,40 @@ import pandas as pd
 import numpy as np
 from pprint import pprint
 from datasets import load_dataset
-from models.TimeSeries.TCN.TCN import TCNModel
+from models.TimeSeries.LSTM.LSTM import LSTMModel
 from sklearn.metrics import mean_absolute_error
 from data.data_processing import Window_maker
 
 @dataclass
-class TCNModelArguments(BaseTrainingArguments):
+class LSTModelArguments(BaseTrainingArguments):
       input_size : int = 5
       output_size : int = 15
-      channels_size : int = 80
-      channels_level: int =3
-      kernel_size : int =7
+      hidden_size : int = 80
+      fully_layer_size : int = 10
+      num_layers : int = 3
       dropout : float = 0.25
 
-class TCNTrainer(BaseTrainer):
+class LSTMrainer(BaseTrainer):
 
   def get_model(self, args):
         kwargs = {}
         kwargs['input_size'] = args.input_size
         kwargs['output_size'] = args.output_size
-        kwargs['num_channels'] = [args.channels_size]*args.channels_level
-        kwargs['kernel_size'] = args.kernel_size
+        kwargs['num_layers'] = args.num_layers
+        kwargs['fully_layer_size'] = args.fully_layer_size
+        kwargs['hidden_size'] = args.hidden_size
         kwargs['dropout'] = args.dropout
-        model = TCNModel(**kwargs)
+        kwargs['batch_size'] = args.batch_size
+        model = LSTMModel(**kwargs)
         return model
 
-  def make_dataset(self,x_data,y_data,y_original,target,window_maker,train = True):
+  def make_dataset(self,x_data,y_data,label_data,target,window_maker,train = True):
       class BaseDataset(Dataset):
         def __init__(self, x_data, y_data):
-            x_data = np.swapaxes(x_data, 1, 2)
-            y_data = np.swapaxes(y_data, 1, 2)
-            label_data = np.swapaxes(y_original, 1, 2)
             self.train = train
-            self.lable_data =torch.tensor(label_data[:,window_maker.feature.index(target),:],dtype = torch.float32)
+            self.lable_data =torch.tensor(label_data[:,:,window_maker.feature.index(target)],dtype = torch.float32)
             self.x_data = torch.tensor(x_data,dtype =torch.float32)
-            self.y_data = torch.tensor(y_data[:,window_maker.feature.index(target),:],dtype = torch.float32)
+            self.y_data = torch.tensor(y_data[:,:,window_maker.feature.index(target)],dtype = torch.float32)
             self.min_max_list = torch.tensor(window_maker.min_max_list,dtype = torch.float32)
         def __getitem__(self, index):
             return self.x_data[index], self.y_data[index] ,self.lable_data[index] ,self.min_max_list[self.get_minmax_index(index)]
@@ -67,18 +66,18 @@ class TCNTrainer(BaseTrainer):
       x_train, y_train ,true_label, min_max= batch
       outputs = self.model(x_train)
       criterian = nn.MSELoss()
+      loss =  criterian(y_train, outputs)
       predict = Window_maker.inverse_min_max(outputs,min_max)
       label =  Window_maker.inverse_min_max(y_train,min_max)
-      loss =  criterian(label, predict)
       mae = torch.mean(torch.abs(label-predict))
       esp = 1e-8
       acc = (1-torch.mean((torch.abs(label-predict)/(label+esp))))
       scale_check =torch.mean(torch.abs(true_label-label))
       return {
-        "loss": loss,
-        "mae": mae,
-        "acc": acc,
-        "check": scale_check
+          "loss": loss,
+          "mae": mae,
+          "acc": acc,
+          "check": scale_check
       }
 
 
@@ -103,4 +102,4 @@ class TCNTrainer(BaseTrainer):
         return eval_results
 
 if __name__ == "__main__":
-    TCNTrainer.main(TCNModelArguments)
+    LSTMrainer.main(LSTModelArguments)

@@ -1,1 +1,0 @@
-{"Training Loss": 0.019926341250538826, "_timestamp": 1700761421.6985343, "_runtime": 367.2038781642914, "_step": 20244, "Evaluation Loss": 0.0238740686327219, "Evaluation MAE": 2.9359180302847, "Evaluation Accuracy": 0.8188599089071864, "_wandb": {"runtime": 387}}
