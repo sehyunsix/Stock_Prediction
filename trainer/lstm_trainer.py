@@ -100,6 +100,7 @@ class LSTMrainer(BaseTrainer):
         eval_results["mae"] = maes.mean().item()
         eval_results["check"] = checks.mean().item()
         return eval_results
-
+def main():
+  LSTMrainer.main(LSTModelArguments)
 if __name__ == "__main__":
-    LSTMrainer.main(LSTModelArguments)
+    main()
