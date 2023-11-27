@@ -9,6 +9,7 @@ OUTPUT_DIR="results"
 
 # Set other optional arguments
 PROJECT_NAME="Transformer"
+RUN_NAME="transformer"
 OVERWRITE_OUTPUT_DIR="true"
 DO_TRAIN="true"
 DO_EVAL="true"
@@ -27,8 +28,8 @@ ADAM_BETA1="0.9"
 ADAM_BETA2="0.999"
 ADAM_EPSILON="1e-8"
 MAX_GRAD_NORM="1.0"
-NUM_TRAIN_EPOCHS="20"
-MAX_STEPS="100000"
+NUM_TRAIN_EPOCHS="100"
+MAX_STEPS="1000"
 LR_SCHEDULER_TYPE="linear"
 PER_DEVICE_TRAIN_BATCH_SIZE="16"
 PREDICT_SIZE="15"
@@ -43,9 +44,10 @@ NUM_LAYERS="1"
 DROPOUT="0.2"
 FULLY_LAYER_SIZE="128"
 INPUT_SIZE="5"
-
+SAVE_STRAGEY="epoch"
 # Run the Python module with the provided arguments
 accelerate launch -m  $PYTHON_MODULE \
+  --run_name "transformer" \
   --project $PROJECT_NAME \
   --output_dir $OUTPUT_DIR \
   --overwrite_output_dir $OVERWRITE_OUTPUT_DIR \
@@ -72,6 +74,7 @@ accelerate launch -m  $PYTHON_MODULE \
   --max_steps $MAX_STEPS \
   --lr_scheduler_type $LR_SCHEDULER_TYPE \
   --per_device_train_batch_size $PER_DEVICE_TRAIN_BATCH_SIZE\
+  --save_strategy $SAVE_STRAGEY\
   --dataset "NASDAQ_3y" \
   --batch_size $BATCH_SIZE\
   --predict_size $PREDICT_SIZE\

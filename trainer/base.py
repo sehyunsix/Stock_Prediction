@@ -300,11 +300,11 @@ class BaseTrainer:
 
     def save_model(self, name):
         run_name = self.args.run_name.replace("/", "__")
-        path = f"{self.args.output_dir}/{run_name}/{name}"
+        path = f"{self.args.output_dir}/{run_name}_{name}"
         unwrapped_model = self.accelerator.unwrap_model(self.model).cpu()
 
-        if self.accelerator.is_local_main_process:
-            unwrapped_model.save_pretrained(path)
+        if self.accelerator.is_local_main_process:  # Save the model
+            torch.save(unwrapped_model.state_dict(), path)
         unwrapped_model.to(self.accelerator.device)
         self.accelerator.wait_for_everyone()
 

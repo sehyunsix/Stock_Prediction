@@ -36,6 +36,7 @@ OUTPUT_SIZE="15"
 EVAL_STEPS="10"
 BATCH_SIZE="128"
 lOG_STEP="10"
+SAVE_STRAGEY="epoch"
 
 #model arguments
 WINDOW_SIZE="360"
@@ -73,6 +74,7 @@ accelerate launch -m  $PYTHON_MODULE \
   --max_steps $MAX_STEPS \
   --lr_scheduler_type $LR_SCHEDULER_TYPE \
   --per_device_train_batch_size $PER_DEVICE_TRAIN_BATCH_SIZE\
+  --save_strategy $SAVE_STRAGEY\
   --dataset "NASDAQ_3y" \
   --batch_size $BATCH_SIZE\
   --predict_size $PREDICT_SIZE\

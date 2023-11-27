@@ -7,7 +7,8 @@ __pycache__/
 *.so
 *.json
 *.yaml
-
+*/results
+results
 # Distribution / packaging
 */wandb
 /wandb
