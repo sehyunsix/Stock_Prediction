@@ -2,13 +2,14 @@
 #!/bin/bash
 
 # Set the path to the Python module
-PYTHON_MODULE="trainer.tcn_trainer"
+PYTHON_MODULE="trainer.tcn_trainer.py"
 
 # Set the path to the output directory
 OUTPUT_DIR="results"
 
 # Set other optional arguments
 OVERWRITE_OUTPUT_DIR="true"
+RUN_NAME="tcn"
 DO_TRAIN="true"
 DO_EVAL="true"
 DO_PREDICT="true"
@@ -26,24 +27,25 @@ ADAM_BETA1="0.9"
 ADAM_BETA2="0.999"
 ADAM_EPSILON="1e-8"
 MAX_GRAD_NORM="1.0"
-NUM_TRAIN_EPOCHS="20"
+NUM_TRAIN_EPOCHS="100"
 MAX_STEPS="100000"
 LR_SCHEDULER_TYPE="linear"
-PER_DEVICE_TRAIN_BATCH_SIZE="16"
+PER_DEVICE_TRAIN_BATCH_SIZE="128"
 PREDICT_SIZE="15"
 OUTPUT_SIZE="15"
 EVAL_STEPS="10"
-BATCH_SIZE="128"
+BATCH_SIZE="1024"
 lOG_STEP="10"
 WINDOW_SIZE="360"
-CHANNEL_SIZE="240"
-CHANNEL_LEVEL="3"
-KENEL_SIZE="14"
+CHANNEL_SIZE="27"
+CHANNEL_LEVEL="6"
+KENEL_SIZE="7"
 
 
 # Run the Python module with the provided arguments
-accelerate launch -m  $PYTHON_MODULE \
+python -m accelerate.commands.launch $PYTHON_MODULE\
   --output_dir $OUTPUT_DIR \
+  --run_name $RUN_NAME \
   --overwrite_output_dir $OVERWRITE_OUTPUT_DIR \
   --do_train $DO_TRAIN \
   --do_eval $DO_EVAL \
