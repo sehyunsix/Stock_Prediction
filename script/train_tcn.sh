@@ -31,6 +31,10 @@ NUM_TRAIN_EPOCHS="100"
 MAX_STEPS="100000"
 LR_SCHEDULER_TYPE="linear"
 PER_DEVICE_TRAIN_BATCH_SIZE="128"
+SAVE_STRAGEY="epoch"
+
+
+#model_arguments
 PREDICT_SIZE="15"
 OUTPUT_SIZE="15"
 EVAL_STEPS="10"
@@ -71,6 +75,7 @@ python -m accelerate.commands.launch $PYTHON_MODULE\
   --lr_scheduler_type $LR_SCHEDULER_TYPE \
   --per_device_train_batch_size $PER_DEVICE_TRAIN_BATCH_SIZE\
   --dataset "NASDAQ_3y" \
+  --save_strategy $SAVE_STRAGEY\
   --batch_size $BATCH_SIZE\
   --predict_size $PREDICT_SIZE\
   --output_size $OUTPUT_SIZE\
