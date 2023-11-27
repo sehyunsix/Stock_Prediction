@@ -145,7 +145,6 @@ compile_commands.json
 Makefile
 Makefile.in
 *.cmake
-*.txt
 *.tar.gz
 *.tar.bz2
 *.tar.xz

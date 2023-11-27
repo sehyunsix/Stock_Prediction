@@ -38,7 +38,7 @@ lOG_STEP="10"
 WINDOW_SIZE="360"
 CHANNEL_SIZE="240"
 CHANNEL_LEVEL="3"
-KENEL_SIZE="7"
+KENEL_SIZE="14"
 
 
 # Run the Python module with the provided arguments

@@ -62,12 +62,11 @@ class TRANSFORMERTrainer(BaseTrainer):
       x_train, y_train ,true_label, min_max= batch
 
       x_train = torch.transpose(x_train, 0, 1)
-      y_train = torch.transpose(y_train, 0, 1)
-      true_label = torch.transpose(true_label, 0, 1)
+      # y_train = torch.transpose(y_train, 0, 1)
+      # true_label = torch.transpose(true_label, 0, 1)
 
       outputs = self.model(x_train)
       criterian = nn.MSELoss()
-      print(y_train.shape,outputs.shape)
       loss =  criterian(y_train, outputs)
       predict = Window_maker.inverse_min_max(outputs,min_max)
       label =  Window_maker.inverse_min_max(y_train,min_max)
