@@ -101,6 +101,7 @@ class TCNTrainer(BaseTrainer):
         eval_results["mae"] = maes.mean().item()
         eval_results["check"] = checks.mean().item()
         return eval_results
-
+def main():
+  TCNTrainer.main(TCNModelArguments)
 if __name__ == "__main__":
-    TCNTrainer.main(TCNModelArguments)
+    main()

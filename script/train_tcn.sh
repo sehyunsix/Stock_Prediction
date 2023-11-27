@@ -2,7 +2,7 @@
 #!/bin/bash
 
 # Set the path to the Python module
-PYTHON_MODULE="trainer.tcn_trainer"
+PYTHON_MODULE="trainer.tcn_trainer.py"
 
 # Set the path to the output directory
 OUTPUT_DIR="results"
@@ -29,11 +29,15 @@ MAX_GRAD_NORM="1.0"
 NUM_TRAIN_EPOCHS="20"
 MAX_STEPS="100000"
 LR_SCHEDULER_TYPE="linear"
-PER_DEVICE_TRAIN_BATCH_SIZE="16"
+PER_DEVICE_TRAIN_BATCH_SIZE="128"
+SAVE_STRAGEY="epoch"
+
+
+#model_arguments
 PREDICT_SIZE="15"
 OUTPUT_SIZE="15"
 EVAL_STEPS="10"
-BATCH_SIZE="128"
+BATCH_SIZE="1024"
 lOG_STEP="10"
 WINDOW_SIZE="360"
 CHANNEL_SIZE="240"
@@ -42,7 +46,7 @@ KENEL_SIZE="14"
 
 
 # Run the Python module with the provided arguments
-accelerate launch -m  $PYTHON_MODULE \
+python -m accelerate.commands.launch $PYTHON_MODULE \
   --output_dir $OUTPUT_DIR \
   --overwrite_output_dir $OVERWRITE_OUTPUT_DIR \
   --do_train $DO_TRAIN \
@@ -69,6 +73,7 @@ accelerate launch -m  $PYTHON_MODULE \
   --lr_scheduler_type $LR_SCHEDULER_TYPE \
   --per_device_train_batch_size $PER_DEVICE_TRAIN_BATCH_SIZE\
   --dataset "NASDAQ_3y" \
+  --save_strategy $SAVE_STRAGEY
   --batch_size $BATCH_SIZE\
   --predict_size $PREDICT_SIZE\
   --output_size $OUTPUT_SIZE\

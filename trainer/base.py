@@ -300,7 +300,7 @@ class BaseTrainer:
 
     def save_model(self, name):
         run_name = self.args.run_name.replace("/", "__")
-        path = f"{self.args.output_dir}/{run_name}_{name}"
+        path = f"{self.args.output_dir}/{run_name}/{name}"
         unwrapped_model = self.accelerator.unwrap_model(self.model).cpu()
 
         if self.accelerator.is_local_main_process:  # Save the model
