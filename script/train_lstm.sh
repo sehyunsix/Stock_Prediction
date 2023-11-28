@@ -8,7 +8,7 @@ PYTHON_MODULE="trainer.lstm_trainer.py"
 OUTPUT_DIR="results"
 
 # Set other optional arguments
-PROJECT_NAME="Time-series"
+PROJECT_NAME="Lstm"
 OVERWRITE_OUTPUT_DIR="true"
 DO_TRAIN="true"
 DO_EVAL="true"

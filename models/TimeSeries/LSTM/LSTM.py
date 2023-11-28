@@ -5,7 +5,6 @@ import torch.nn.functional as F
 class LSTMModel(nn.Module):
 	def __init__(self, output_size, hidden_size, batch_size,input_size,num_layers ,fully_layer_size,dropout):
 		super(LSTMModel, self).__init__()
-		self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 		self.output_size = output_size
 		self.hidden_size =hidden_size
 		self.batch_size = batch_size
@@ -19,8 +18,8 @@ class LSTMModel(nn.Module):
 		self.hidden = self.reset_hidden_state()
 
 	def reset_hidden_state(self):
-		h_0 = torch.zeros(self.num_layers, self.batch_size, self.hidden_size).to(self.device)
-		c_0 = torch.zeros(self.num_layers, self.batch_size ,self.hidden_size).to(self.device)
+		h_0 = torch.zeros(self.num_layers, self.batch_size, self.hidden_size)
+		c_0 = torch.zeros(self.num_layers, self.batch_size ,self.hidden_size)
 		return (h_0,c_0)
 
 	def forward(self, x):
