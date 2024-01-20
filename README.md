@@ -47,3 +47,9 @@ pip install -r requirements.txt
 ```
 wandb login 토큰
 ```
+
+# Reference
+```
+Supported by TPU Research Cloud
+https://sites.research.google/trc/about/
+```
